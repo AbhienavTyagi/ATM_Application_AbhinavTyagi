@@ -21,7 +21,6 @@ namespace ATM_AbhinavTyagi
             bool running = true;
             while (running)
             {
-                Console.Clear();
                 Console.WriteLine("======== Welcome to the ATM Application ========");
                 Console.Write("Choose the following options by the number associated with the option");
                 Console.WriteLine("\n 1. Create Account");
@@ -31,14 +30,14 @@ namespace ATM_AbhinavTyagi
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        CreateAccount();
+                        CreateAccount(); //create new account
                         break;
                     case "2":
-                        SelectAccount();
+                        SelectAccount(); //Select an existing account
                         break;
-                    //case "3":
-                        //running = false;
-                        //break;
+                    case "3":
+                        running = false; // Exit option
+                        break;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
@@ -48,19 +47,19 @@ namespace ATM_AbhinavTyagi
 
         private void CreateAccount()
         {
-            Console.Write("Enter account holder's name: ");
+            Console.Write("Enter account holder's name: "); //read accont holder name
             string accHolderName = Console.ReadLine();
-            Console.Write("Enter account number \n (Account number must be between 100 and 1000)");
+            Console.Write("Enter account number \n (Account number must be between 100 and 1000)"); //read account number
             int accNum = int.Parse(Console.ReadLine());
-            Console.Write("Enter annual interest rate \n (Must be less than 3.00)");
+            Console.Write("Enter annual interest rate \n (Must be less than 3.00)"); //Read the ROI 
             double ROI = double.Parse(Console.ReadLine()) / 100;
-            Console.Write("Enter initial balance: ");
+            Console.Write("Enter initial balance: "); //Read the initial balance
             double initBal = double.Parse(Console.ReadLine());
             
             
 
-            Account newAccount = new Account(accNum, initBal, ROI, accHolderName);
-            bank.AddAccount(newAccount);
+            Account newAccount = new Account(accNum, initBal, ROI, accHolderName); //new account creation
+            bank.AddAccount(newAccount); //add acount to bank
 
             Console.WriteLine("Account created successfully!");
             
@@ -69,12 +68,12 @@ namespace ATM_AbhinavTyagi
         private void SelectAccount()
         {
             Console.Write("Enter account number: ");
-            int accNum = int.Parse(Console.ReadLine());
-            Account selectedAccount = bank.RetrieveAccount(accNum);
+            int accNum = int.Parse(Console.ReadLine()); //read account number
+            Account selectedAccount = bank.RetrieveAccount(accNum); //Retrieve account from bank
 
             if (selectedAccount != null)
             {
-                Console.WriteLine("Welcome " + selectedAccount.AccHolderName);
+                Console.WriteLine("Welcome " + selectedAccount.AccHolderName); //Matching the account number with account name and greeting the user.
                 AccountMenu(selectedAccount);
             }
             else
@@ -96,25 +95,25 @@ namespace ATM_AbhinavTyagi
                 Console.Write("Select an option: ");
                 int choice = int.Parse(Console.ReadLine());
 
-                switch (choice)
+                switch (choice) //read user choice and save the value in choice
                 {
                     case 1:
-                        Console.WriteLine("Balance: " + selectedAccount.Balance.ToString());
+                        Console.WriteLine("Balance: " + selectedAccount.Balance.ToString()); //balance display
                         break;
                     case 2:
                         Console.Write("Enter deposit amount: ");
-                        double depositAmount = double.Parse(Console.ReadLine());
-                        selectedAccount.Deposit(depositAmount);
+                        double depositAmount = double.Parse(Console.ReadLine()); //read deposit amount
+                        selectedAccount.Deposit(depositAmount); //increment to account balance
                         Console.WriteLine("Deposit successful!");
                         break;
                     case 3:
                         Console.Write("Enter withdrawal amount: ");
-                        double withdrawAmount = double.Parse(Console.ReadLine());
-                        selectedAccount.Withdraw(withdrawAmount);
+                        double withdrawAmount = double.Parse(Console.ReadLine()); //read withdrawal amount
+                        selectedAccount.Withdraw(withdrawAmount); //withdraw from account
                         Console.WriteLine("Withdrawal successful!");
                         break;
                     case 4:
-                        selectedAccount.DisplayTransactions();
+                        selectedAccount.DisplayTransactions(); //display transaction made to account
                         break;
                     case 5:
                         return;
@@ -124,71 +123,10 @@ namespace ATM_AbhinavTyagi
                 }
             }
         }
-
-        //private void SelectAccount()
-        //{
-        //    Console.Write("Enter account number: ");
-        //    int accNum = int.Parse(Console.ReadLine());
-        //    selectedAccount = bank.RetrieveAccount(accNum);
-
-        //    if (selectedAccount != null)
-        //    {
-        //        Console.WriteLine("Welcome " + selectedAccount.AccHolderName);
-        //        bool accountMenuRunning = true;
-        //        while (accountMenuRunning)
-        //        {
-        //            //Console.Clear();
-        //            Console.WriteLine("Choose the following options");
-        //            Console.WriteLine("1. Check Balance");
-        //            Console.WriteLine("2. Deposit");
-        //            Console.WriteLine("3. Withdraw");
-        //            Console.WriteLine("4. Display Transactions");
-        //            Console.WriteLine("5. Exit Account");
-        //            Console.Write("Select an option: ");
-        //            switch (Console.ReadLine())
-        //            {
-        //                case "1":
-        //                    Console.WriteLine("Balance: " + selectedAccount.Balance.ToString());                         
-        //                    break;
-        //                case "2":
-        //                    Console.Write("Enter deposit amount: ");
-        //                    double depositAmount = double.Parse(Console.ReadLine());
-        //                    selectedAccount.Deposit(depositAmount);
-        //                    Console.WriteLine("Deposit successful!");
-        //                    break;
-        //                case "3":
-        //                    Console.Write("Enter withdrawal amount: ");
-        //                    double withdrawalAmount = double.Parse(Console.ReadLine());
-        //                    selectedAccount.Withdraw(withdrawalAmount);
-        //                    Console.WriteLine("Withdrawal successful!");
-        //                    break;
-        //                case "4":
-        //                    Console.WriteLine("Transactions:");
-        //                    selectedAccount.DisplayTransactions();
-        //                    break;
-        //                case "5":
-        //                    accountMenuRunning = false;
-        //                    break;
-        //                default:
-        //                    Console.WriteLine("Invalid option. Please try again.");
-        //                    break;
-        //            }
-        //            //Console.WriteLine("Press any key to continue...");
-        //            //Console.ReadKey();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Account not found.");
-        //        Console.WriteLine("Press any key to return to the main menu...");
-        //        Console.ReadKey();
-        //    }
-        //}
-
         static void Main(string[] args)
         {
             AtmApplication atmApp = new AtmApplication();
-            atmApp.Run();
+            atmApp.Run(); //running the application
         }
     }
 }

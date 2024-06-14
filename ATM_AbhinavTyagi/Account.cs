@@ -20,21 +20,21 @@ namespace ATM_AbhinavTyagi
             Balance = initBal;
             InterestRate = ROI;
             AccHolderName = accHolderName;
-            Transactions = new List<string>();
+            Transactions = new List<string>();   //This assigns the newly created list to the Transactions.
         }
 
         public void Deposit(double amount)
         {
             Balance += amount;
-            Transactions.Add("Deposited: " + amount.ToString());
+            Transactions.Add("Deposited: " + amount.ToString()); //Modifying the transaction after change in account balance.
         }
 
         public void Withdraw(double amount)
         {
             if (Balance >= amount)
             {
-                Balance -= amount;
-                Transactions.Add("Withdrew: " +amount.ToString());
+                Balance -= amount; //decrement from the account balance.
+                Transactions.Add("Withdrew: " +amount.ToString()); //displaying the withdrawn amount.
             }
             else
             {
@@ -44,7 +44,7 @@ namespace ATM_AbhinavTyagi
 
         public void DisplayTransactions()
         {
-            foreach (var transaction in Transactions)
+            foreach (var transaction in Transactions) //foreach loop used to fetch all iterations saved in transaction.
             {
                 Console.WriteLine(transaction);
             }
